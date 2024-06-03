@@ -13,7 +13,6 @@ SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 
-
 CREATE SCHEMA IF NOT EXISTS `prova_db` DEFAULT CHARACTER SET utf8 ;
 USE `prova_db` ;
 
@@ -101,6 +100,10 @@ on projeto.idInstituição = instituição.idInstituição
 where instituição.idInstituição = 10;
 
 -- Numero 5
+select distinct(professores.nome)
+from professores, projeto
+where professores.idProfessor not in(select projeto.IdProfessor
+								   from projeto);
 
 -- Numero 6
 select titulo
@@ -119,8 +122,18 @@ from projeto
 where projeto.idColaborador is null;
 
 -- Numero 9
-select curso.area
-from curso
-where curso.area is 1;
+select titulo
+from projeto
+inner join professores
+on projeto.idProfessor = professores.idProfessor
+inner join curso
+on professores.idCurso = curso.idCurso
+where professores.idCurso = 1 or professores.idCurso = 2;
 
 -- Numero 10
+select projeto.titulo, curso.nome
+from projeto
+inner join professores
+on projeto.idProfessor = professores.idProfessor
+inner join curso
+on professores.idCurso = curso.idCurso

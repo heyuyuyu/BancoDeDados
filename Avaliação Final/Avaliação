@@ -1,6 +1,7 @@
 # Avaliação Final
 
 1) No seu github pessoal, criar um repositório de banco de dados (caso ainda não exista) e dentro dele um arquivo chamado vocabulario.md. Nele preencher o significado das expressões abaixo, mantendo o texto ordenado:
+
 	1. sistema gerenciador de banco de dados
 	Um Sistema Gerenciador de Banco de Dados (SGBD) é um software que permite a criação, manutenção e o uso de bancos de dados. Ele fornece ferramentas para a definição de estrutura de dados, armazenamento, manipulação e segurança dos dados.
 
@@ -119,19 +120,34 @@ VALUES (1,2,1,'2023-06-07',3),
 (4,2,4,'2023-06-07',1),
 (5,4,7,'2023-06-07',12);
 
-# Todos os clientes armazenados no sistema:
+	1. Todos os clientes armazenados no sistema:
+	SELECT * FROM cliente;
+
+	2. Exiba os veículos que tenham final 3 no número da placa
+	SELECT * FROM veiculo
+	WHERE placa LIKE '%3';
 
 
-# Exiba os veículos que tenham final 3 no número da placa
+	3. Mostre os clientes que residem no RS e que não possuam telefone
+	SELECT * FROM cliente
+	WHERE uf_cnh = 'RS' AND telefone IS NULL;
 
 
-# Mostre os clientes que residem no RS e que não possuam telefone
+	4. Exiba o código dos clientes que alugaram veículos por mais de 90 dias.
+	SELECT id_cliente FROM contrato_aluguel
+	WHERE duracao > 90;
 
+	5. Quantos veículos há cadastrados no sistema
+	SELECT COUNT(*) AS total_veiculos FROM veiculo;
 
-# Exiba o código dos clientes que alugaram veículos por mais de 90 dias.
+	6. Mostre o veículo alugado por Alexandre Zamberlan.
+	SELECT veiculo.* FROM veiculo
+	JOIN contrato_aluguel ON veiculo.id_veiculo = contrato_aluguel.id_veiculo
+	JOIN cliente ON contrato_aluguel.id_cliente = cliente.id_cliente
+	WHERE cliente.nome = 'Alexandre Zamberlan';
 
-# Quantos veículos há cadastrados no sistema
-
-# Mostre o veículo alugado por Alexandre Zamberlan.
-
-# Mostre os clientes e os escritórios associados no contrato de aluguel.
+	7. Mostre os clientes e os escritórios associados no contrato de aluguel.
+	SELECT cliente.nome AS nome_cliente, escritorio.nome AS nome_escritorio
+	FROM contrato_aluguel
+	JOIN cliente ON contrato_aluguel.id_cliente = cliente.id_cliente
+	JOIN escritorio ON contrato_aluguel.id_escritorio = escritorio.id_escritorio;
